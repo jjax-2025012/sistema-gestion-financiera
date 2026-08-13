@@ -97,7 +97,7 @@ JWT_EXPIRES_IN=1h
 Con el `.env` ya configurado y la tabla `users` creada:
 
 ```bash
-                              --------gmail----------                  --contraseña-- 
+                              --------gmail----------  ----Rol----------- --contraseña-- 
 pnpm run db:create-test-user -- jjax-2025012@gmail.com "Usuario de Prueba" 0123
 ```
 

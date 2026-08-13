@@ -1,18 +1,3 @@
-/**
- * Script de DESARROLLO para crear (o actualizar) un usuario de prueba
- * en PostgreSQL, con la contraseña correctamente hasheada.
- *
- * No se usa dentro de la aplicación ni se expone por HTTP: se ejecuta
- * manualmente desde la terminal mientras se desarrolla.
- *
- * Uso:
- *   npm run db:create-test-user -- <correo> <usuario> <contraseña>
- *
- * Ejemplo:
- *   npm run db:create-test-user -- prueba@correo.com "Usuario de Prueba" Prueba123!
- *
- * Si no se pasan argumentos, se usan valores por defecto (ver abajo).
- */
 
 import "dotenv/config";
 import { pool } from "../src/db/pool";

@@ -15,8 +15,7 @@ export const pool = new Pool({
 });
 
 pool.on("error", (err) => {
-  // Error en una conexión inactiva del pool (por ejemplo, la base de datos
-  // se cayó). Se registra para diagnóstico; no se debe tumbar el servidor.
+  // Error en una conexión inactiva del pool (por ejemplo, la base de datose cayó). Se registra para diagnóstico; no se debe tumbar el servidor.
   console.error("Error inesperado en el pool de PostgreSQL:", err.message);
 });
 

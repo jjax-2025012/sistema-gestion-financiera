@@ -71,7 +71,7 @@ login-financiero/
 
 ```bash
 cd backend
-npm install
+pnpm install
 cp .env.example .env
 ```
 
@@ -97,7 +97,8 @@ JWT_EXPIRES_IN=1h
 Con el `.env` ya configurado y la tabla `users` creada:
 
 ```bash
-npm run db:create-test-user -- prueba@correo.com "Usuario de Prueba" Prueba123!
+                              --------gmail----------                  --contraseña-- 
+pnpm run db:create-test-user -- jjax-2025012@gmail.com "Usuario de Prueba" 0123
 ```
 
 Esto guarda en PostgreSQL un usuario con la contraseña **ya hasheada**
@@ -107,7 +108,7 @@ prefieres; si no pasas argumentos, usa esos valores por defecto.
 ### Iniciar el backend
 
 ```bash
-npm run dev
+pnpm run dev
 ```
 
 Deberías ver:
@@ -126,8 +127,8 @@ En otra terminal:
 
 ```bash
 cd frontend
-npm install
-npm start
+pnpm install
+pnpm start
 ```
 
 Esto levanta Angular en `http://localhost:4200`. Al abrirlo verás
@@ -193,16 +194,9 @@ Esta separación por módulos (`modules/auth`, `modules/users` en el backend;
 `features/dashboard`, `features/budgets`, etc., sin reorganizar lo ya
 construido.
 
-## Sobre el diseño y los colores
 
-No se contó con el logo del proyecto en este incremento, así que **no se
-inventó una paleta de colores definitiva**. En `frontend/src/styles.css`
-se definieron variables CSS (`--color-primary`, `--color-accent`, etc.)
-con valores marcados como `TODO`, listas para reemplazarse por los colores
-reales del logo apenas estén disponibles — solo hay que cambiar esos
-valores en un único archivo.
 
-## Qué NO se desarrolló todavía (a propósito)
+## Qué NO se desarrolló todavía
 
 Este incremento se detiene exactamente en el login funcional. Quedan
 pendientes para incrementos posteriores: dashboard, ingresos, gastos,

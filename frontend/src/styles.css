@@ -1,0 +1,44 @@
+/* ==========================================================================
+   PALETA DE COLORES — PENDIENTE DE REEMPLAZO
+   ==========================================================================
+   No se tuvo acceso al logo del proyecto en este incremento, por lo que
+   NO se inventó una identidad visual definitiva. Los valores de abajo son
+   PLACEHOLDERS (marcados con "TODO") pensados para una app financiera,
+   pero deben reemplazarse por los colores reales extraídos del logo
+   apenas estén disponibles. Al ser variables CSS, basta con cambiar los
+   valores aquí para que toda la aplicación se actualice.
+   ========================================================================== */
+:root {
+  --color-primary: #1f4e5f;        /* TODO: color principal del logo */
+  --color-primary-dark: #163947;   /* TODO: variante oscura del color principal del logo */
+  --color-accent: #2e7d6b;         /* TODO: color secundario / de acento del logo */
+  --color-background: #f4f6f7;     /* TODO: confirmar contra el fondo del logo, si aplica */
+  --color-surface: #ffffff;
+  --color-text: #1e1e1e;
+  --color-text-muted: #667085;
+  --color-border: #d9dee1;
+  --color-error: #c0392b;
+  --color-error-bg: #fdecea;
+  --color-success: #2e7d6b;
+
+  --font-family-base: "Segoe UI", Roboto, system-ui, -apple-system, sans-serif;
+  --radius-base: 10px;
+  --shadow-card: 0 10px 30px rgba(31, 78, 95, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family-base);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  -webkit-font-smoothing: antialiased;
+}

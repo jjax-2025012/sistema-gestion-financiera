@@ -1,16 +1,20 @@
-import { Routes } from "@angular/router";
+import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
 
-/**
- * En este incremento el proyecto solo tiene la pantalla de login.
- * Las rutas de dashboard, ingresos, gastos, activos, pasivos, etc.
- * se agregarán en incrementos posteriores.
- */
 export const routes: Routes = [
-  { path: "", redirectTo: "login", pathMatch: "full" },
+  { path: '', redirectTo: 'login', pathMatch: 'full' },
   {
-    path: "login",
+    path: 'login',
     loadComponent: () =>
-      import("./features/login/login.component").then((m) => m.LoginComponent),
+      import('./features/login/login.component').then((m) => m.LoginComponent),
   },
-  { path: "**", redirectTo: "login" },
+  {
+    path: 'dashboard',
+    canActivate: [authGuard],
+    loadComponent: () =>
+      import('./features/dashboard/dashboard.component').then(
+        (m) => m.DashboardComponent
+      ),
+  },
+  { path: '**', redirectTo: 'login' },
 ];

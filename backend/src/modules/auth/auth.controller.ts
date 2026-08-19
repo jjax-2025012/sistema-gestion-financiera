@@ -40,3 +40,15 @@ export async function loginHandler(req: Request, res: Response, next: NextFuncti
     next(error);
   }
 }
+
+export function getMeHandler(req: Request, res: Response) {
+  const { sub, email, username } = req.authUser;
+
+  res.status(200).json({
+    user: {
+      id: sub,
+      email,
+      username,
+    },
+  });
+}

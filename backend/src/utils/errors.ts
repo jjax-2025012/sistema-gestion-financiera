@@ -29,3 +29,10 @@ export class DatabaseUnavailableError extends AppError {
     super(503, "No se pudo conectar con la base de datos. Intenta de nuevo en unos momentos.");
   }
 }
+
+/** 401 — token ausente, inválido o expirado. */
+export class UnauthorizedError extends AppError {
+  constructor(message = "Sesión expirada o token inválido.") {
+    super(401, message);
+  }
+}

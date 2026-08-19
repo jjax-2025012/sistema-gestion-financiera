@@ -98,7 +98,7 @@ Con el `.env` ya configurado y la tabla `users` creada:
 
 ```bash
                               --------gmail----------  ----Rol----------- --contraseña-- 
-pnpm run db:create-test-user -- jjax-2025012@gmail.com "Usuario de Prueba" 0123
+pnpm run db:create-test-user jjax-2025012@gmail.com "Usuario de Prueba" 0123
 ```
 
 Esto guarda en PostgreSQL un usuario con la contraseña **ya hasheada**

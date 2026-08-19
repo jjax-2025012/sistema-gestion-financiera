@@ -1,90 +1,52 @@
-import { Component, inject, signal } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormBuilder, ReactiveFormsModule, Validators } from "@angular/forms";
-import { HttpErrorResponse } from "@angular/common/http";
-import { AuthService } from "../../core/services/auth.service";
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../core/services/auth.service';
 
 @Component({
-  selector: "app-login",
+  selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: "./login.component.html",
-  styleUrl: "./login.component.css",
+  imports: [CommonModule, FormsModule],
+  templateUrl: './login.component.html',
+  styleUrl: './login.component.css'
 })
-export class LoginComponent {
-  private readonly formBuilder = inject(FormBuilder);
-  readonly authService = inject(AuthService);
+export class LoginComponent implements OnInit {
+  private authService = inject(AuthService);
+  private router = inject(Router);
 
-  readonly isLoading = signal(false);
-  readonly errorMessage = signal<string | null>(null);
+  email = '';
+  password = '';
+  errorMessage = '';
+  isLoading = false;
 
-  readonly form = this.formBuilder.group({
-    email: ["", [Validators.required, Validators.email]],
-    password: ["", [Validators.required]],
-  });
-
-  get emailControl() {
-    return this.form.controls.email;
-  }
-
-  get passwordControl() {
-    return this.form.controls.password;
+  ngOnInit(): void {
+    // Si venimos de una expiración automática, mostramos el mensaje.
+    const sessionExpiredMessage = this.authService.sessionExpiredMessage;
+    if (sessionExpiredMessage) {
+      this.errorMessage = sessionExpiredMessage;
+      this.authService.sessionExpiredMessage = null; // limpiar para la próxima visita
+    }
   }
 
   onSubmit(): void {
-    if (this.isLoading()) {
+    if (!this.email || !this.password) {
+      this.errorMessage = 'Por favor ingresa tu correo y contraseña.';
       return;
     }
 
-    if (this.form.invalid) {
-      this.form.markAllAsTouched();
-      return;
-    }
+    this.isLoading = true;
+    this.errorMessage = '';
 
-    const { email, password } = this.form.getRawValue();
-
-    this.isLoading.set(true);
-    this.errorMessage.set(null);
-
-    this.authService.login({ email: email!, password: password! }).subscribe({
+    this.authService.login({ email: this.email, password: this.password }).subscribe({
       next: () => {
-        this.isLoading.set(false);
+        this.isLoading = false;
+        this.router.navigate(['/dashboard']);
       },
-      error: (error: HttpErrorResponse) => {
-        this.isLoading.set(false);
-        this.errorMessage.set(this.mapErrorToMessage(error));
-      },
+      error: (err) => {
+        this.isLoading = false;
+        this.errorMessage = err.error?.message || 'Credenciales incorrectas o error en el servidor.';
+      }
     });
-  }
-
-  onLogout(): void {
-    this.authService.logout();
-    this.form.reset();
-    this.errorMessage.set(null);
-  }
-
-  private mapErrorToMessage(error: HttpErrorResponse): string {
-    // status 0: la solicitud nunca llegó a recibir respuesta (servidor apagado,
-    // problema de red, o CORS mal configurado).
-    if (error.status === 0) {
-      return "No se pudo conectar con el servidor. Verifica que el backend esté encendido.";
-    }
-
-    if (error.status === 503) {
-      return (
-        error.error?.message ??
-        "No se pudo conectar con la base de datos. Intenta de nuevo en unos momentos."
-      );
-    }
-
-    if (error.status === 401) {
-      return error.error?.message ?? "Correo o contraseña incorrectos.";
-    }
-
-    if (error.status === 400) {
-      return error.error?.message ?? "Revisa los datos ingresados.";
-    }
-
-    return "Ocurrió un error inesperado. Intenta de nuevo.";
   }
 }

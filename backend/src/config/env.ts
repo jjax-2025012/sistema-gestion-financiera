@@ -29,8 +29,8 @@ export const env = {
     password: requireEnv("DB_PASSWORD"),
   },
 
-  jwt: {
+    jwt: {
     secret: requireEnv("JWT_SECRET"),
-    expiresIn: process.env.JWT_EXPIRES_IN ?? "1h",
+    expiresIn: process.env.JWT_EXPIRES_IN ?? "8h",
   },
 };
